@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class CardDeck {
@@ -8,16 +11,28 @@ public class CardDeck {
     public CardDeck() {
         this.cards = new Card[CardDeck.cardDeckSize];
         this.topCardIndex = 0;
-        for(int i = 0; i < this.cards.length; i++) {
-            this.cards[i] = new Card(0, CardSuit.Clubs);
+        CardSuit [] allsuits = CardSuit.values();
+        int counter = 0;
+        for(int i = 0; i < allsuits.length; i++) {
+            CardSuit suit = allsuits[i];
+            for (int j = 0; j < CardFace.values().length; j++) {
+                this.cards[counter] = new Card(j, suit);
+                counter ++;
+            }
         }
-        //use a loop to create the cards:
-        //Loop 1: loop through the suits
-        //Inner Loop 2: Loop through the cards in a suit (0-12) and pass to create a card
     }
 
     public void shuffle() {
-        //TODO: shuffle the deck
+        Card[] shuffledDeck = new Card[cardDeckSize];
+        ArrayList<Card> shuffleHelperDeck = new ArrayList<Card>();
+        Collections.addAll(shuffleHelperDeck, cards);
+        for(int i = 0; i < cardDeckSize; i++){
+            int randomIndex = (int)Math.floor(Math.random() * shuffleHelperDeck.size());
+            shuffledDeck[i] = shuffleHelperDeck.get(randomIndex);
+            shuffleHelperDeck.remove(randomIndex);
+        }
+        cards = shuffledDeck;
+        topCardIndex = 0;
     }
 
     public void printDeck() {

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class PlayerHand {
     ArrayList <Card> playerHand;
     private int playerHandTotal;
+    public static final int BLACKJACK = 21;
 
     public PlayerHand(){
         this.playerHand = new ArrayList<Card>();
@@ -16,9 +17,11 @@ public class PlayerHand {
     public int playerHandTotal(){
         return playerHandTotal;
     }
+    public boolean isBust(){
+        return playerHandTotal > BLACKJACK;
+    }
     public boolean isBlackjack(){
-
-        return false;
+        return playerHandTotal == BLACKJACK && playerHand.size() == 2;
     }
     public String toString(){
         String hand = "";
