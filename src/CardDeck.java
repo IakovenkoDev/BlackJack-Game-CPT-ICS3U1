@@ -21,7 +21,7 @@ public class CardDeck {
     }
 
     public void printDeck() {
-        //TODO: print out the deck in order
+        System.out.println(this.toString());
     }
 
     public Card drawCard() {
@@ -36,7 +36,7 @@ public class CardDeck {
     public String toString() {
         String cardDeck = "";
         for (int i = 0; i < this.cards.length; i++){
-            cardDeck = cardDeck + this.cards[i].toString() + "\n" ;
+            cardDeck += this.cards[i].toString() + "\n" ;
         }
         return cardDeck;
     }

@@ -47,13 +47,10 @@ public class Card {
             case Diamonds:
                 return "♦";
         }
-        return "TODO";
+        return "?";
     }
 
-    public Integer getCardValue(Integer handTotal) {
-        if(this.cardFace == CardFace.Ace && handTotal + this.cardValue > 21) {
-            return 1;
-        }
+    public Integer getCardValue() {
         return this.cardValue;
     }
 }

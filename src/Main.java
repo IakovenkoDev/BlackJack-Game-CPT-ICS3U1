@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     static Scanner input = new Scanner(System.in);
 
@@ -10,7 +8,11 @@ public class Main {
             //GameRound game = new GameRound(getInitialBet());
             //GameRound round2 = new GameRound(2);
             CardDeck cardDeck = new CardDeck();
-            System.out.println(cardDeck.toString());
+            cardDeck.printDeck();
+            PlayerHand hello = new PlayerHand();
+            hello.addCard(cardDeck.drawCard());
+            hello.addCard(cardDeck.drawCard());
+            System.out.println(hello.toString());
         } while(promptContinueGame());
     }
 
