@@ -1,3 +1,3 @@
 public enum GameResult {
-    Bust, Win, Push, DealerBlackjack, PlayerBlackjack
+    Bust, Lose, Win, Push, PlayerBlackjack
 }

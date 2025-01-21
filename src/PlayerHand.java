@@ -23,12 +23,26 @@ public class PlayerHand {
     public boolean isBlackjack(){
         return playerHandTotal == BLACKJACK && playerHand.size() == 2;
     }
+
+    public String getHiddenHand(){
+        String hand = "";
+        for (int i = 0; i < playerHand.size(); i++){
+            if (i ==1){
+                hand += "??  ";
+            }
+            else {
+                hand += playerHand.get(i) + "  ";
+            }
+        }
+        return hand;
+    }
+
     public String toString(){
         String hand = "";
         for (int i = 0; i < playerHand.size(); i++){
             hand += playerHand.get(i) + "  ";
         }
-        hand += "\n" + playerHandTotal();
+        hand += "\n" + "The total number of points your hand holds is: " + playerHandTotal();
         return hand;
     }
 }
