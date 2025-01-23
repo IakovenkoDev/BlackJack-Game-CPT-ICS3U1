@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
 public class GameRound {
-    static Scanner input = new Scanner(System.in);
-    public double initialBet;
-    public CardDeck cardDeck;
-    public PlayerHand playerHand;
-    public PlayerHand dealerHand;
+    private static final Scanner input = new Scanner(System.in);
+    private final double initialBet;
+    private final CardDeck cardDeck;
+    private final PlayerHand playerHand;
+    private final PlayerHand dealerHand;
     private boolean gameRunning;
-    public static final String HIT = "H";
-    public static final String STAND = "S";
+    private static final String HIT = "H";
+    private static final String STAND = "S";
     private GameResult gameResult = null;
 
     public GameRound(double initialBet) {

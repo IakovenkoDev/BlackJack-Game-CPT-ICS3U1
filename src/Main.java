@@ -2,8 +2,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    static Scanner input = new Scanner(System.in);
+    private static final Scanner input = new Scanner(System.in);
     private static double playerMoney;
+
     public static void main(String[] args) {
         ArrayList<GameResult> gameResults = new ArrayList<>();
         System.out.println("Welcome to Blackjack! Please make sure you are aware of the rules before playing. Rules can be found at: https://docs.google.com/document/d/17PGTygHBYQAtfCN8Jyo0l2eMeb0-ThB47iaNVS8qvHI/edit?tab=t.0");

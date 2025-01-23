@@ -1,11 +1,16 @@
-import java.util.Scanner;
-
+/*
+    This is the card class which deals with all the things the card needs:
+        - The card needs to be assembled
+        - The card needs to know how it looks (CardFace + CardSuit)
+        - card needs to know how many points it is (cardValue)
+*/
 public class Card {
-    CardFace cardFace;
-    private Integer cardValue;
-    String faceValue;
-    CardSuit cardSuit;
+    private final CardFace cardFace;
+    private final Integer cardValue;
+    private final String faceValue;
+    private final CardSuit cardSuit;
 
+    // This is the constructor, the constructor creates a new card instance. Display values and card values are also set in this constructor.
     public Card(Integer cardIndex, CardSuit cardSuit) {
         this.cardSuit = cardSuit;
         this.cardFace = CardFace.values()[cardIndex];
@@ -32,10 +37,16 @@ public class Card {
         }
     }
 
+    // toString method converts the built card as a String.
     public String toString() {
         return this.faceValue + this.getSuitValue();
     }
 
+    public boolean isAce(){
+        return cardFace == CardFace.Ace;
+    }
+
+    // getSuitValue method converts the enum CardSuit into Strings so that information can be displayed to the user.
     public String getSuitValue() {
         switch (this.cardSuit){
             case Clubs:
@@ -50,6 +61,7 @@ public class Card {
         return "?";
     }
 
+    // getCardValue method is a public method that allows other classes to get the card value.
     public Integer getCardValue() {
         return this.cardValue;
     }
