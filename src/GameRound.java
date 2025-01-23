@@ -156,7 +156,7 @@ public class GameRound {
                 break;
             case Lose:
             case Bust:
-                System.out.println("You lost: $" + totalReceived);
+                System.out.println("You lost: $" + String.format("%.2f", totalReceived() * -1));
                 System.out.println("Your bet was lost.");
                 break;
             case PlayerBlackjack:

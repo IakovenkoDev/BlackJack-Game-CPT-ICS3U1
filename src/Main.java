@@ -9,7 +9,7 @@ public class Main {
         System.out.println("Welcome to Blackjack! Please make sure you are aware of the rules before playing. Rules can be found at: https://docs.google.com/document/d/17PGTygHBYQAtfCN8Jyo0l2eMeb0-ThB47iaNVS8qvHI/edit?tab=t.0");
         double originalMoney = getPlayerMoneyInput();
         playerMoney = originalMoney;
-        System.out.println("The game is now starting...\nYour account has " + getPlayerMoneyFormatted());
+        System.out.println("The game is now starting...");
         do {
             GameRound game = new GameRound(getInitialBet());
             game.playGame();
@@ -28,7 +28,7 @@ public class Main {
     }
 
     static void printAccountValue(){
-        System.out.println("\nYour account balance is: $" + getPlayerMoneyFormatted());
+        System.out.println("\nYour account balance is: " + getPlayerMoneyFormatted());
     }
 
     static double getInitialBet() {
@@ -42,7 +42,7 @@ public class Main {
                     if(inputDouble > playerMoney) {
                         System.out.println("Whoops, you don't have enough money to make this bet! You have " + getPlayerMoneyFormatted());
                     } else {
-                        return inputDouble;
+                        return ((double)Math.round(inputDouble * 100))/100;
                     }
                 } else if(inputDouble == 0) {
                     System.out.println("You can't bet nothing. Sorry, betting doesn't work this way :)");
@@ -62,7 +62,7 @@ public class Main {
             try {
                 double inputDouble = Double.parseDouble(inputStr);
                 if (inputDouble > 0) {
-                    return inputDouble;
+                    return ((double)Math.round(inputDouble * 100))/100;
                 } else {
                     System.out.println("Please enter a positive number to start the game.");
                 }
@@ -92,14 +92,23 @@ public class Main {
     }
 
     static void displayStatistics(ArrayList<GameResult> gameResults){
-        System.out.println();
+        int numGamesWon = 0;
+        System.out.println("Total games played: " + gameResults.size());
+        for(int i = 0; i < gameResults.size(); i++){
+            if (gameResults.get(i) == GameResult.Win || gameResults.get(i) == GameResult.PlayerBlackjack){
+                numGamesWon += 1;
+            }
+        }
+        System.out.println("Total number of games won: " + numGamesWon);
+        double winPercentage =  ((double)numGamesWon/gameResults.size()) * 100;
+        System.out.println("The win percentage is: " + String.format("%.2f", winPercentage) + "%");
     }
 
     static void displayWinnings(double netWinnings) {
         if(netWinnings > 0) {
             System.out.println("Total won: $" + String.format("%.2f", netWinnings));
         } else {
-            System.out.println("Total lost: $" + String.format("%.2f", netWinnings));
+            System.out.println("Total lost: $" + String.format("%.2f", netWinnings * -1));
         }
     }
 }

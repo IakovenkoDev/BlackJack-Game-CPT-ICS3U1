@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Scanner;
 
 public class CardDeck {
     Card[] cards;
@@ -24,7 +22,7 @@ public class CardDeck {
 
     public void shuffle() {
         Card[] shuffledDeck = new Card[cardDeckSize];
-        ArrayList<Card> shuffleHelperDeck = new ArrayList<Card>();
+        ArrayList<Card> shuffleHelperDeck = new ArrayList<>();
         Collections.addAll(shuffleHelperDeck, cards);
         for(int i = 0; i < cardDeckSize; i++){
             int randomIndex = (int)Math.floor(Math.random() * shuffleHelperDeck.size());
@@ -36,7 +34,7 @@ public class CardDeck {
     }
 
     public void printDeck() {
-        System.out.println(this.toString());
+        System.out.print(this.toString());
     }
 
     public Card drawCard() {
@@ -51,7 +49,7 @@ public class CardDeck {
     public String toString() {
         String cardDeck = "";
         for (int i = 0; i < this.cards.length; i++){
-            cardDeck += this.cards[i].toString() + "\n" ;
+            cardDeck += this.cards[i].toString() + "\n";
         }
         return cardDeck;
     }
