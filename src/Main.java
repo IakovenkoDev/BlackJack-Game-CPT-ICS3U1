@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Main {
     private static final Scanner input = new Scanner(System.in);
     private static double playerMoney;
+    private static final double  maxBetPossible = 10000000.00;
 
     public static void main(String[] args) {
         ArrayList<GameResult> gameResults = new ArrayList<>();
@@ -62,9 +63,13 @@ public class Main {
             String inputStr = input.nextLine();
             try {
                 double inputDouble = Double.parseDouble(inputStr);
-                if (inputDouble > 0) {
+                if(inputDouble > maxBetPossible){
+                    System.out.println("This casino only accepts bets upto a maximum of $" + String.format("%.2f", maxBetPossible) + ". Please enter a bet that is less.");
+                }
+                else if (inputDouble > 0) {
                     return ((double)Math.round(inputDouble * 100))/100;
-                } else {
+                }
+                else {
                     System.out.println("Please enter a positive number to start the game.");
                 }
             } catch (Exception e) {
