@@ -6,7 +6,7 @@ public class PlayerHand {
     public static final int BLACKJACK = 21;
 
     public PlayerHand(){
-        this.playerHand = new ArrayList<Card>();
+        this.playerHand = new ArrayList<>();
         this.playerHandTotal = 0;
     }
 
@@ -14,12 +14,15 @@ public class PlayerHand {
         this.playerHand.add(addedCard);
         playerHandTotal += addedCard.getCardValue();
     }
+
     public int playerHandTotal(){
         return playerHandTotal;
     }
+
     public boolean isBust(){
         return playerHandTotal > BLACKJACK;
     }
+
     public boolean isBlackjack(){
         return playerHandTotal == BLACKJACK && playerHand.size() == 2;
     }
@@ -42,7 +45,7 @@ public class PlayerHand {
         for (int i = 0; i < playerHand.size(); i++){
             hand += playerHand.get(i) + "  ";
         }
-        hand += "\n" + "The total number of points your hand holds is: " + playerHandTotal();
+        hand += "\n" + "Hand total: " + playerHandTotal() + " points.";
         return hand;
     }
 }

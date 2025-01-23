@@ -10,6 +10,7 @@ public class GameRound {
     public static final String HIT = "H";
     public static final String STAND = "S";
     private GameResult gameResult = null;
+
     public GameRound(double initialBet) {
         this.initialBet = initialBet;
         this.cardDeck = new CardDeck();
@@ -42,7 +43,7 @@ public class GameRound {
     }
 
     private void showCards(boolean showAllCards){
-        if(showAllCards == false){
+        if(!showAllCards){
             System.out.println("These are the dealer's cards: " + dealerHand.getHiddenHand());
         }
         else {
@@ -54,20 +55,25 @@ public class GameRound {
     private void checkForBlackjack(){
         if(dealerHand.isBlackjack() && playerHand.isBlackjack()){
             showCards(true);
+            System.out.println("Both you and the dealer had a blackjack!");
             endGame(GameResult.Push);
+
         }
         else if(dealerHand.isBlackjack()){
             showCards(true);
+            System.out.println("Dealer had a blackjack!");
             endGame(GameResult.Lose);
+
         }
         else if(playerHand.isBlackjack()){
             showCards(true);
+            System.out.println("!!!!!!!!!!!Blackjack!!!!!!!!!!!");
             endGame(GameResult.PlayerBlackjack);
         }
     }
 
     private void playerTurn(){
-        boolean correctInput = true;
+        boolean correctInput;
         showCards(false);
         System.out.println("\nYou may proceed to enter your action: \n1.\t If you want to HIT press the [H] key \n2. \t If you want to STAND press the [S] key");
         do {
@@ -105,41 +111,100 @@ public class GameRound {
     }
 
     private void dealerTurn(){
-        while(dealerHand.playerHandTotal() < 17){
+        while (dealerHand.playerHandTotal() < 17) {
             Card newCard = cardDeck.drawCard();
             dealerHand.addCard(newCard);
             System.out.println("Dealer drew a " + newCard);
-            if (dealerHand.isBust()){
+            System.out.println("These are the dealer's cards: " + dealerHand.getHiddenHand() + "\n");
+            if (dealerHand.isBust()) {
                 System.out.println("The dealer BUSTED!");
-                showCards(true);
+                System.out.println(dealerHand.toString() + "\n");
                 endGame(GameResult.Win);
+                return;
             }
         }
+        System.out.println("Dealer does not need to take any more cards.");
+        System.out.println("These are the dealer's cards: " + dealerHand.toString() + "\n");
     }
 
     private GameResult calculateResult(){
-        //TODO
-
-        return GameResult.Win;
+        if (playerHand.playerHandTotal() > dealerHand.playerHandTotal()){
+            return GameResult.Win;
+        }
+        else if(playerHand.playerHandTotal() < dealerHand.playerHandTotal()){
+            return GameResult.Lose;
+        }
+        else if(playerHand.playerHandTotal() == dealerHand.playerHandTotal()){
+            return GameResult.Push;
+        }
+        return null;
     }
+
     private void endGame(GameResult result){
-        System.out.println("The game has ended, final game calculations are taking place...");
+        System.out.println("The game has ended, final game calculations are taking place...\n");
         gameRunning = false;
         gameResult = result;
+        String totalReceived = String.format("%.2f", totalReceived());
+        showCards(true);
+        System.out.println(" ");
+        switch (gameResult){
+            case Win:
+                System.out.println("Congratulations you won the game!!!");
+                System.out.println("You won: $" + totalReceived);
+                System.out.println("Your bet was returned.");
+                promptKeepDeck();
+                break;
+            case Lose:
+            case Bust:
+                System.out.println("You lost: $" + totalReceived);
+                System.out.println("Your bet was lost.");
+                break;
+            case PlayerBlackjack:
+                System.out.println("Congratulations, you had a BLACKJACK!!!!!!\nYou will now receive special compensation:\n");
+                System.out.println("Special Bonus: $" + totalReceived);
+                System.out.println("Your bet was returned.");
+                promptKeepDeck();
+                break;
+            case Push:
+                System.out.println("You have a Push (tie) with the dealer.");
+                System.out.println("Your bet was returned.");
+                break;
+        }
     }
 
-    public double totalRecieved(){
-        return 2.00;
+    public double totalReceived(){
+        switch (gameResult){
+            case PlayerBlackjack:
+                return (initialBet/2) * 3;
+            case Win:
+                return initialBet;
+            case Lose:
+            case Bust:
+                return -1 * initialBet;
+            case Push:
+                return 0;
+        }
+        return 0;
     }
 
     public GameResult getGameResult(){
-        return GameResult.Win;
+        return gameResult;
     }
 
-    public void printGame(){
+    // Test method
+    public void printGame() {
         cardDeck.printDeck();
         System.out.println("Player hand: " + playerHand.toString());
         System.out.println("Dealer Hand: " + dealerHand.toString());
+    }
+
+    private void promptKeepDeck() {
+        System.out.println("Congratulations!! Do you want to keep the lucky card deck?");
+        System.out.println("1. \t For YES [Y]. \n2. \t Any other key to continue.");
+        String inputStr = input.nextLine();
+        if(inputStr.equals("Y")) {
+            cardDeck.printDeck();
+        }
     }
 
 }
