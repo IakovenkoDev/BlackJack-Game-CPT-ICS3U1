@@ -34,23 +34,23 @@ public class GameRound {
     }
 
     // Effectively the "main" method that will later be used to run the game by the Main
-    public void playGame(){
+    public void playGame() {
         gameRunning = true;
         initialHandout();
         checkForBlackjack();
-        while(gameRunning) {
+        while (gameRunning) {
             playerTurn();
         }
-        if(gameResult == null) {
+        if (gameResult == null) {
             dealerTurn();
         }
-        if(gameResult == null) {
+        if (gameResult == null) {
             endGame(calculateResult());
         }
     }
 
     // Hands out initial cards and adds them to the appropriate player decks
-    private void initialHandout(){
+    private void initialHandout() {
         for (int i = 0; i < 2; i++) {
             playerHand.addCard(cardDeck.drawCard());
             dealerHand.addCard(cardDeck.drawCard());
@@ -61,31 +61,28 @@ public class GameRound {
            - Fully revealing all cards (dealer and player)
            - Hidden reveal (2nd dealer card hidden, everything else revealed).
        Depends on the parameter. */
-    private void showCards(boolean showAllCards){
-        if(!showAllCards){
+    private void showCards(boolean showAllCards) {
+        if (!showAllCards) {
             System.out.println("These are the dealer's cards: " + dealerHand.getHiddenHand());
-        }
-        else {
+        } else {
             System.out.println("These are the dealer's cards: " + dealerHand.toString());
         }
         System.out.println("These are your cards: \n" + playerHand.toString());
     }
 
     // Checks for Blackjack in both player and dealer, compares scenarios
-    private void checkForBlackjack(){
-        if(dealerHand.isBlackjack() && playerHand.isBlackjack()){
+    private void checkForBlackjack() {
+        if (dealerHand.isBlackjack() && playerHand.isBlackjack()) {
             showCards(true);
             System.out.println("Both you and the dealer had a blackjack!");
             endGame(GameResult.Push);
 
-        }
-        else if(dealerHand.isBlackjack()){
+        } else if (dealerHand.isBlackjack()) {
             showCards(true);
             System.out.println("Dealer had a blackjack!");
             endGame(GameResult.Lose);
 
-        }
-        else if(playerHand.isBlackjack()){
+        } else if (playerHand.isBlackjack()) {
             showCards(true);
             System.out.println("!!!!!!!!!!!Blackjack!!!!!!!!!!!");
             endGame(GameResult.PlayerBlackjack);
@@ -93,7 +90,7 @@ public class GameRound {
     }
 
     // PLayerTurn method asks for the player action of either hit or stand and redirects to the hit/stand methods depending on the input.
-    private void playerTurn(){
+    private void playerTurn() {
         boolean correctInput;
         showCards(false);
         System.out.println("\nYou may proceed to enter your action: \n1.\t If you want to HIT press the [H] key \n2. \t If you want to STAND press the [S] key");
@@ -112,15 +109,15 @@ public class GameRound {
                     System.out.println("Instruction were not followed correctly please try again!");
                     correctInput = false;
             }
-        } while(!correctInput);
+        } while (!correctInput);
     }
 
     // This method is one of the player actions - HIT, which gives the player a card and checks if the new card will make the player bust
-    private void hit(){
+    private void hit() {
         Card newCard = cardDeck.drawCard();
         playerHand.addCard(newCard);
         System.out.println("Your new card is: " + newCard.toString() + "\n");
-        if (playerHand.isBust()){
+        if (playerHand.isBust()) {
             System.out.println(playerHand.toString());
             System.out.println("You have BUSTED!");
             endGame(GameResult.Bust);
@@ -128,13 +125,13 @@ public class GameRound {
     }
 
     // This method is one of the player actions - STAND, which ends the player's turn and starts the dealer's turn
-    private void stand(){
+    private void stand() {
         System.out.println("Turn complete, it is now the dealer's turn...");
         gameRunning = false;
     }
 
     // This method is responsible for the dealer's turn. The dealer takes until he has at least 17 points in his hand. After each "hit" the dealer's hand is checked for bust
-    private void dealerTurn(){
+    private void dealerTurn() {
         while (dealerHand.playerHandTotal() < 17) {
             Card newCard = cardDeck.drawCard();
             dealerHand.addCard(newCard);
@@ -152,28 +149,28 @@ public class GameRound {
     }
 
     // Calculates result if there is no Blackjack or bust from either the dealer or the player
-    private GameResult calculateResult(){
-        if (playerHand.playerHandTotal() > dealerHand.playerHandTotal()){
+    private GameResult calculateResult() {
+        if (playerHand.playerHandTotal() > dealerHand.playerHandTotal()) {
             return GameResult.Win;
         }
-        else if(playerHand.playerHandTotal() < dealerHand.playerHandTotal()){
+        else if (playerHand.playerHandTotal() < dealerHand.playerHandTotal()) {
             return GameResult.Lose;
         }
-        else if(playerHand.playerHandTotal() == dealerHand.playerHandTotal()){
+        else if (playerHand.playerHandTotal() == dealerHand.playerHandTotal()) {
             return GameResult.Push;
         }
         return null;
     }
 
     // After the GameResults have been determined the endGame method deals with the messages that inform the user of the hand evaluations
-    private void endGame(GameResult result){
+    private void endGame(GameResult result) {
         System.out.println("The game has ended, final game calculations are taking place...\n");
         gameRunning = false;
         gameResult = result;
         String totalReceived = String.format("%.2f", totalReceived());
         showCards(true);
         System.out.println(" ");
-        switch (gameResult){
+        switch (gameResult) {
             case Win:
                 System.out.println("Congratulations you won the game!!!");
                 System.out.println("You won: $" + totalReceived);
@@ -199,8 +196,8 @@ public class GameRound {
     }
 
     // Calculates how much the player will receive at each GameResult
-    public double totalReceived(){
-        switch (gameResult){
+    public double totalReceived() {
+        switch (gameResult) {
             case PlayerBlackjack:
                 return (initialBet/2) * 3;
             case Win:
@@ -215,7 +212,7 @@ public class GameRound {
     }
 
     // Method that allows Main to access the game result
-    public GameResult getGameResult(){
+    public GameResult getGameResult() {
         return gameResult;
     }
 
@@ -231,7 +228,7 @@ public class GameRound {
         System.out.println("Congratulations!! Do you want to keep the lucky card deck?");
         System.out.println("1. \t For YES [Y]. \n2. \t Any other key to continue.");
         String inputStr = input.nextLine();
-        if(inputStr.equals("Y")) {
+        if (inputStr.equals("Y")) {
             cardDeck.printDeck();
         }
     }

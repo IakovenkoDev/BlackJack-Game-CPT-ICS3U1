@@ -34,7 +34,7 @@ public class Main {
     }
 
     // Method that prints the account value in formatted player money form
-    static void printAccountValue(){
+    static void printAccountValue() {
         System.out.println("\nYour account balance is: " + getPlayerMoneyFormatted());
     }
 
@@ -47,12 +47,12 @@ public class Main {
             try {
                 double inputDouble = Double.parseDouble(inputStr);
                 if (inputDouble > 0) {
-                    if(inputDouble > playerMoney) {
+                    if (inputDouble > playerMoney) {
                         System.out.println("Whoops, you don't have enough money to make this bet! You have " + getPlayerMoneyFormatted());
                     } else {
                         return ((double)Math.round(inputDouble * 100))/100;
                     }
-                } else if(inputDouble == 0) {
+                } else if (inputDouble == 0) {
                     System.out.println("You can't bet nothing. Sorry, betting doesn't work this way :)");
                 } else {
                     System.out.println("You can't bet a negative number! That would mean I'm paying you to play :)");
@@ -72,11 +72,9 @@ public class Main {
                 double inputDouble = Double.parseDouble(inputStr);
                 if(inputDouble > maxBetPossible){
                     System.out.println("This casino only accepts bets upto a maximum of $" + String.format("%.2f", maxBetPossible) + ". Please enter a bet that is less.");
-                }
-                else if (inputDouble > 0) {
+                } else if (inputDouble > 0) {
                     return ((double)Math.round(inputDouble * 100))/100;
-                }
-                else {
+                } else {
                     System.out.println("Please enter a positive number to start the game.");
                 }
             } catch (Exception e) {
@@ -94,7 +92,7 @@ public class Main {
         do {
             System.out.println("Do you want to start a new round and continue the game?\n1. \t For YES [Y] \n2. \t For NO [N]");
             String playerInput = input.nextLine();
-            switch (playerInput){
+            switch (playerInput) {
                 case "Y":
                     return true;
                 case "N":
@@ -106,22 +104,22 @@ public class Main {
     }
 
     // Method that displays the game stats such as % games won, number of games played and number of games won
-    static void displayStatistics(ArrayList<GameResult> gameResults){
+    static void displayStatistics(ArrayList<GameResult> gameResults) {
         int numGamesWon = 0;
         System.out.println("Total games played: " + gameResults.size());
-        for(int i = 0; i < gameResults.size(); i++){
+        for (int i = 0; i < gameResults.size(); i++) {
             if (gameResults.get(i) == GameResult.Win || gameResults.get(i) == GameResult.PlayerBlackjack){
                 numGamesWon += 1;
             }
         }
         System.out.println("Total number of games won: " + numGamesWon);
-        double winPercentage =  ((double)numGamesWon/gameResults.size()) * 100;
+        double winPercentage = ((double)numGamesWon/gameResults.size()) * 100;
         System.out.println("The win percentage is: " + String.format("%.2f", winPercentage) + "%");
     }
 
     // Method that displays how much was lost/won, also endgame stats.
     static void displayWinnings(double netWinnings) {
-        if(netWinnings > 0) {
+        if (netWinnings > 0) {
             System.out.println("Total won: $" + String.format("%.2f", netWinnings));
         } else {
             System.out.println("Total lost: $" + String.format("%.2f", netWinnings * -1));
@@ -129,8 +127,8 @@ public class Main {
     }
 
     // Displays the amount of money the user has left
-    static void displayMoneyOnExit(){
-        if(playerMoney > 0){
+    static void displayMoneyOnExit() {
+        if (playerMoney > 0) {
             System.out.println("You left the casino with: $" + getPlayerMoneyFormatted());
         }
     }

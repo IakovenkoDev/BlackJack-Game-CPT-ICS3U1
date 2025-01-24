@@ -14,7 +14,7 @@ public class PlayerHand {
     public static final int BLACKJACK = 21;
 
     // Constructor initialising the instance of the playerHand
-    public PlayerHand(){
+    public PlayerHand() {
         this.playerHand = new ArrayList<>();
     }
 
@@ -24,7 +24,7 @@ public class PlayerHand {
     }
 
     // Method that calculates the total number of points in a player's hand
-    public int playerHandTotal(){
+    public int playerHandTotal()  {
         /* The logic for this method works in the following way:
             1. For loop loops through the players hand
             2. Each iteration of the loop checks if the card is an Ace and counts how many aces are in the player's hand using an accumulator.
@@ -42,47 +42,43 @@ public class PlayerHand {
             if (card.isAce()) {
                 myAce = card;
                 numAces ++;
-            }
-            else{
+            } else{
                 totalPoints += card.getCardValue();
             }
         }
 
-        if(numAces == 0){
+        if (numAces == 0) {
             return totalPoints;
-        }
-        else if (numAces > 1){
+        } else if (numAces > 1) {
             //add one point for every ace except the first one, because otherwise the total will exceed 21.
             totalPoints += numAces - 1;
         }
 
         if((totalPoints + myAce.getCardValue()) > BLACKJACK){
             totalPoints += 1;
-        }
-        else{
+        } else{
             totalPoints += myAce.getCardValue();
         }
         return totalPoints;
     }
 
     // This method checks for a bust
-    public boolean isBust(){
+    public boolean isBust() {
         return playerHandTotal() > BLACKJACK;
     }
 
     // This method checks for Blackjack
-    public boolean isBlackjack(){
+    public boolean isBlackjack() {
         return playerHandTotal() == BLACKJACK && playerHand.size() == 2;
     }
 
     // This method is responsible for printing out the hidden dealer hand
-    public String getHiddenHand(){
+    public String getHiddenHand() {
         String hand = "";
         for (int i = 0; i < playerHand.size(); i++){
-            if (i ==1){
+            if (i ==1) {
                 hand += "??  ";
-            }
-            else {
+            } else {
                 hand += playerHand.get(i) + "  ";
             }
         }
@@ -90,9 +86,9 @@ public class PlayerHand {
     }
 
     // This method converts the hand to a string
-    public String toString(){
+    public String toString() {
         String hand = "";
-        for (int i = 0; i < playerHand.size(); i++){
+        for (int i = 0; i < playerHand.size(); i++) {
             hand += playerHand.get(i) + "  ";
         }
         hand += "\n" + "Hand total: " + playerHandTotal() + " points.";

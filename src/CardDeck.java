@@ -19,7 +19,7 @@ public class CardDeck {
         this.topCardIndex = 0;
         CardSuit [] allsuits = CardSuit.values();
         int counter = 0;
-        for(int i = 0; i < allsuits.length; i++) {
+        for (int i = 0; i < allsuits.length; i++) {
             CardSuit suit = allsuits[i];
             for (int j = 0; j < CardFace.values().length; j++) {
                 this.cards[counter] = new Card(j, suit);
@@ -40,7 +40,7 @@ public class CardDeck {
         Card[] shuffledDeck = new Card[cardDeckSize];
         ArrayList<Card> shuffleHelperDeck = new ArrayList<>();
         Collections.addAll(shuffleHelperDeck, cards);
-        for(int i = 0; i < cardDeckSize; i++){
+        for (int i = 0; i < cardDeckSize; i++) {
             int randomIndex = (int)Math.floor(Math.random() * shuffleHelperDeck.size());
             shuffledDeck[i] = shuffleHelperDeck.get(randomIndex);
             shuffleHelperDeck.remove(randomIndex);

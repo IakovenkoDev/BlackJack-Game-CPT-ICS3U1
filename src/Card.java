@@ -13,7 +13,7 @@ public class Card {
     public Card(Integer cardIndex, CardSuit cardSuit) {
         this.cardSuit = cardSuit;
         this.cardFace = CardFace.values()[cardIndex];
-        switch(this.cardFace) {
+        switch (this.cardFace) {
             case CardFace.Ace:
                this.cardValue = 11;
                this.faceValue = "A";
@@ -41,13 +41,13 @@ public class Card {
         return this.faceValue + this.getSuitValue();
     }
 
-    public boolean isAce(){
+    public boolean isAce() {
         return cardFace == CardFace.Ace;
     }
 
     // getSuitValue method converts the enum CardSuit into Strings so that information can be displayed to the user.
     public String getSuitValue() {
-        switch (this.cardSuit){
+        switch (this.cardSuit) {
             case Clubs:
                return "♣";
             case Hearts:
