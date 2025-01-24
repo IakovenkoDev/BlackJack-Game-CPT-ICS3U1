@@ -1,28 +1,42 @@
 import java.util.ArrayList;
 
+ /* This is the PlayerHand class which deals with all operations related to the hand of a generic player meaning it could be the dealer or the user.
+    Such operations include:
+        - Adding a card to the player's hand
+        - Calculating the hand total with Ace logic
+        - Checking for Bust
+        - Checking for Blackjack
+        - System.output.printLn dealerHand with the getHiddenHand()
+        - System.output.printLn playerHand with the toString() */
+
 public class PlayerHand {
     private final ArrayList <Card> playerHand;
     public static final int BLACKJACK = 21;
 
+    // Constructor initialising the instance of the playerHand
     public PlayerHand(){
         this.playerHand = new ArrayList<>();
     }
 
+    // Method for adding a card to the player's hand
     public void addCard(Card addedCard) {
         this.playerHand.add(addedCard);
     }
 
+    // Method that calculates the total number of points in a player's hand
     public int playerHandTotal(){
-        //TODO: calculate total based on cards in hand
-        //1. loop through playerHand
-        //count number of Aces and the total points from all other cards
-        //2. if no Aces, return point total
-        //if > 1 Ace, use 1 as the point value for Aces 2+
-        //for the remaining 1 Ace, check if adding 11 will make the total points > BLACKJACK
-        //If no, add 11, otherwise add 1
+        /* The logic for this method works in the following way:
+            1. For loop loops through the players hand
+            2. Each iteration of the loop checks if the card is an Ace and counts how many aces are in the player's hand using an accumulator.
+            3. Counts the number of total points of all cards that are not Aces
+            4. If there are no Aces present, it returns the calculated point total
+            5. If there is more than one Ace in the players hand, all Aces except for one are given point total of 1.
+            6. For the remaining Ace
+                a. If adding 11 points results in a bust (> BLACKJACK) then the remaining ace is given a value of one
+                b. If adding 11 points doesn't result in a bust (< BLACKJACK) then the remaining ace is given a value of 11.  */
+
         int numAces = 0;
         int totalPoints = 0;
-        // For every card in tge player hand, do the following (loop explanation)
         Card myAce = null;
         for (Card card : playerHand) {
             if (card.isAce()) {
@@ -51,14 +65,17 @@ public class PlayerHand {
         return totalPoints;
     }
 
+    // This method checks for a bust
     public boolean isBust(){
         return playerHandTotal() > BLACKJACK;
     }
 
+    // This method checks for Blackjack
     public boolean isBlackjack(){
         return playerHandTotal() == BLACKJACK && playerHand.size() == 2;
     }
 
+    // This method is responsible for printing out the hidden dealer hand
     public String getHiddenHand(){
         String hand = "";
         for (int i = 0; i < playerHand.size(); i++){
@@ -72,6 +89,7 @@ public class PlayerHand {
         return hand;
     }
 
+    // This method converts the hand to a string
     public String toString(){
         String hand = "";
         for (int i = 0; i < playerHand.size(); i++){

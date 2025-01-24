@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+// Main class --> take everything together and runs the game
 public class Main {
     private static final Scanner input = new Scanner(System.in);
     private static double playerMoney;
@@ -12,6 +13,7 @@ public class Main {
         double originalMoney = getPlayerMoneyInput();
         playerMoney = originalMoney;
         System.out.println("The game is now starting...");
+        // while loop allows for continuous gameplay until you lose all your money and are forced to leave or you decide to leave.
         do {
             GameRound game = new GameRound(getInitialBet());
             game.playGame();
@@ -21,18 +23,22 @@ public class Main {
         } while(promptContinueGame());
         displayStatistics(gameResults);
         displayWinnings(playerMoney - originalMoney);
+        displayMoneyOnExit();
         System.out.println("Thank you for playing Blackjack!");
         System.out.println("Hope to see you again soon");
     }
 
+    // Method that formats player money into a string with a rounded money amount
     static String getPlayerMoneyFormatted() {
         return "$" + String.format("%.2f", playerMoney);
     }
 
+    // Method that prints the account value in formatted player money form
     static void printAccountValue(){
         System.out.println("\nYour account balance is: " + getPlayerMoneyFormatted());
     }
 
+    // Method that gets initial bet, manages incorrect player inputs to prevent crashes
     static double getInitialBet() {
         printAccountValue();
         while (true) {
@@ -57,6 +63,7 @@ public class Main {
         }
     }
 
+    // Method that gets the amount of money the player essentially "brings" to the casino, manages incorrect player inputs to prevent crashes
     static double getPlayerMoneyInput() {
         while (true) {
             System.out.println("How much money are you playing with?");
@@ -78,6 +85,7 @@ public class Main {
         }
     }
 
+    // Method that asks the player if they would like to play a new round. If the player has no more money they are booted from the "casino"
     static boolean promptContinueGame() {
         if(playerMoney == 0) {
             System.out.println("You gambled away all your money! You were kicked out of the casino :(");
@@ -97,6 +105,7 @@ public class Main {
         } while (true);
     }
 
+    // Method that displays the game stats such as % games won, number of games played and number of games won
     static void displayStatistics(ArrayList<GameResult> gameResults){
         int numGamesWon = 0;
         System.out.println("Total games played: " + gameResults.size());
@@ -110,11 +119,19 @@ public class Main {
         System.out.println("The win percentage is: " + String.format("%.2f", winPercentage) + "%");
     }
 
+    // Method that displays how much was lost/won, also endgame stats.
     static void displayWinnings(double netWinnings) {
         if(netWinnings > 0) {
             System.out.println("Total won: $" + String.format("%.2f", netWinnings));
         } else {
             System.out.println("Total lost: $" + String.format("%.2f", netWinnings * -1));
+        }
+    }
+
+    // Displays the amount of money the user has left
+    static void displayMoneyOnExit(){
+        if(playerMoney > 0){
+            System.out.println("You left the casino with: $" + getPlayerMoneyFormatted());
         }
     }
 }

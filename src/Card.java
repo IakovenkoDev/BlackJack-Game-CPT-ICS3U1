@@ -1,9 +1,8 @@
-/*
-    This is the card class which deals with all the things the card needs:
-        - The card needs to be assembled
-        - The card needs to know how it looks (CardFace + CardSuit)
-        - card needs to know how many points it is (cardValue)
-*/
+/* This is the card class which deals with all the things the card needs:
+    - The card needs to be assembled
+    - The card needs to know how it looks (CardFace + CardSuit)
+    - card needs to know how many points it is (cardValue) */
+
 public class Card {
     private final CardFace cardFace;
     private final Integer cardValue;
